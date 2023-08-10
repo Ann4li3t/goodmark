@@ -13,13 +13,11 @@ export default function Home(props) {
           title={'FaceStyles'}
           description={''}
         >
-          <div className='content-container'>
-            {globalState === null ? (
+          {globalState === null ? (
               <Avatars />
             ) : (
               <Styles propsStyles={props.styles}  />                
-            )}
-          </div>        
+            )}        
         </Layout >          
     </>
   )

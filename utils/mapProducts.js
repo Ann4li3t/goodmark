@@ -5,7 +5,6 @@ export const mapProducts = (nodes) => {
         id: uuid(),
         uri: nodeItem.uri,
         title: nodeItem.title,
-        nameTaxonomy: nodeItem.productFields.productCategory.name,
         featuredImage: nodeItem.featuredImage.node.mediaItemUrl
     }))
 }

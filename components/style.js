@@ -1,92 +1,39 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { StateContext } from 'context/stateContext'
 import styles from 'styles/styles.module.css'
+import { getRandomColor, isPngImage } from 'utils/utils'
 
 export const Style = ({filteredStyles}) => {
-    const { globalState } = useContext(StateContext); 
-
+    const { globalState } = useContext(StateContext);
+    const [gender, setGender] = useState(globalState)
   return (
     <>
-        {filteredStyles.map(object => (
-            <div className={styles.wrapperStyle} key={object.id}>
-                <h3 className={styles.titleStyle}>{object.title}</h3>
-                 
-                {globalState === 'feminine' ? (
-                    <Link href={object.uri}>
-                        {/* <Image
-                            src={object.steps[object.steps.length - 1].feminineImageStep.mediaItemUrl} 
-                            alt="Descripción de la imagen"
-                            width={400} 
-                            height={400}
-                        />  */}
+        {filteredStyles.map((style) => {
+            const {id, title, uri, steps} = style
+            const imgStyle =
+            gender === 'masculine'
+              ? steps[steps.length - 1].masculineImageStep?.mediaItemUrl ?? null
+              : gender === 'feminine'
+              ? steps[steps.length - 1].feminineImageStep?.mediaItemUrl ?? null
+              : null; 
+              const randomColor = isPngImage(imgStyle) ? getRandomColor() : '#fff';
+            return (
+                <div className={styles.wrapperStyle} style={{ backgroundColor: randomColor }} key={id}>
+                    <h3 className={styles.titleStyle}>{title}</h3>
+                    <Link href={uri}>
                         <Image
-                            src="/img/styles/asset.png" 
+                            className={styles.styleImage}                
+                            src={imgStyle}
                             alt="Descripción de la imagen"
                             width={400} 
                             height={400}
-                        /> 
-                    </Link>                   
-                ) : globalState === 'masculine' && (
-                    <Link href={object.uri}>
-                        {/* <Image
-                            className={styles.styleImage}
-                            src={object.steps[object.steps.length - 1].masculineImageStep.mediaItemUrl}
-                            alt="Descripción de la imagen"
-                            width={400} 
-                            height={400}
-                        />  */}
-
-                        <Image
-                            src="/img/styles/asset.png"  
-                            alt="Descripción de la imagen"
-                            width={400} 
-                            height={400}
-                        />
-                    </Link>                    
-                ) }
-            </div>
-        ))}
-        {filteredStyles.map(object => (
-            <div className={styles.wrapperStyle} key={object.id}>
-                <p className={styles.titleStyle}>{object.title}</p>
-                
-                {globalState === 'feminine' ? (
-                    <Link href={object.uri}>
-                        {/* <Image
-                            src={object.steps[object.steps.length - 1].feminineImageStep.mediaItemUrl} 
-                            alt="Descripción de la imagen"
-                            width={400} 
-                            height={400}
-                        />  */}
-                        <Image
-                            src="/img/styles/asset.png" 
-                            alt="Descripción de la imagen"
-                            width={400} 
-                            height={400}
-                        /> 
-                    </Link>                   
-                ) : globalState === 'masculine' && (
-                    <Link href={object.uri}>
-                        {/* <Image
-                            className={styles.styleImage}
-                            src={object.steps[object.steps.length - 1].masculineImageStep.mediaItemUrl}
-                            alt="Descripción de la imagen"
-                            width={400} 
-                            height={400}
-                        />  */}
-
-                        <Image
-                            src="/img/styles/asset.png"  
-                            alt="Descripción de la imagen"
-                            width={400} 
-                            height={400}
-                        />
-                    </Link>                    
-                ) }
-            </div>
-        ))}
+                        />                        
+                    </Link>               
+                </div>
+            ); 
+        })}       
     </>
   )
 }

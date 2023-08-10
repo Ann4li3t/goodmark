@@ -1,8 +1,7 @@
 .contentHome {
   display: flex;
-  flex-direction: column;
-  /* align-items: center;
-  justify-content: center;    */ 
+  flex-direction: column;  
+  height: 86vh;
 }
 
 .contentBannerQuality {  
@@ -29,7 +28,6 @@
 
 .contentIcon img {
   width: auto;  
-  /* height: 90px; */
   height: 9vh;
   margin: 0 20px;
 }
@@ -53,7 +51,8 @@
 .containerAvatars {
   display: flex;
   justify-content: center;
-  align-content: end;
+  align-content: flex-end;
+  gap: 3rem;
 }
 .avatars {
   position: relative; 
@@ -61,13 +60,55 @@
 .avatars button {
   height: 100%;
 }
-.imgAvatar {
-  /* width: 100%; */
-  width: auto;
-  height: 65vh;
-  margin-bottom: -5px;
-  transition: transform 0.3s ease;
+
+.imgAvatarGirl, .imgAvatarBoy {
+  position: relative;
+  width: 28vw;
+  height: 62vh !important;
+  background-size: cover;
+  overflow: hidden;
 }
-.avatars:hover img {
-  transform: scale(1.1); 
+
+.imgAvatarGirl::before,
+.imgAvatarGirl::after,
+.imgAvatarBoy::before,
+.imgAvatarBoy::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  transition: opacity 0.3s; 
+}
+
+.imgAvatarGirl::before {
+  background-image: url('../public/img/index/girl-1.png');
+  opacity: 1;
+}
+
+.imgAvatarGirl::after {
+  background-image: url('../public/img/index/girl.png');
+  opacity: 0;
+}
+
+.imgAvatarBoy::before {
+  background-image: url('../public/img/index/boy-1.png');
+  opacity: 1;
+}
+
+.imgAvatarBoy::after {
+  background-image: url('../public/img/index/boy.png');
+  opacity: 0;
+}
+
+.imgAvatarBoy:hover::before,
+.imgAvatarGirl:hover::before {
+  opacity: 0; 
+}
+
+.imgAvatarBoy:hover::after,
+.imgAvatarGirl:hover::after {
+  opacity: 1;
 }

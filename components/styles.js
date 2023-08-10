@@ -6,7 +6,6 @@ import styles from '../styles/styles.module.css'
 import { Assets } from './assets'
 
 export const Styles = ({propsStyles}) => {
-    const { globalState } = useContext(StateContext)
     
     const categoryStyles = Array.from(new Set(propsStyles.map(object => object.nameTaxonomy)))
 
@@ -20,7 +19,7 @@ export const Styles = ({propsStyles}) => {
 
     return (
       <>      
-        <div className={styles.contentStyles}>
+        <div className={`content-container ${styles.contentStyles}`}>
             <Assets />         
 
             <div className={styles.contentTitleStyles}>
@@ -29,7 +28,6 @@ export const Styles = ({propsStyles}) => {
                     src="/img/assets/asset-stars.png" 
                     width={72} 
                     height={22} 
-                    /* className={styles.imgAvatar} */
                     alt='imagen asset stars' /> 
             </div>
             

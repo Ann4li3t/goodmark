@@ -1,163 +1,104 @@
-import { gql } from "@apollo/client";
-import client from "client";
-import Image from "next/image";
-import Link from "next/link";
-import { getStyleStaticProps } from "utils/getPageStaticProps"
+import React, { useState, useContext, useEffect } from 'react'
+import { gql } from "@apollo/client"
+import { client } from "client"
+import Image from "next/image"
+import Link from "next/link"
+import { StateContext } from 'context/stateContext'
 import Layout from 'components/layout'
+import { Assets } from "components/assets"
+import { Slider } from "components/slider"
+import { getStyleStaticProps } from "utils/getPageStaticProps"
+import {interleaveArrays, isPngImage} from "utils/utils"
 import styles from 'styles/style.module.css'
-import { Assets } from "components/assets";
 
-const Style = (props) => {
-    console.log(props.style)
-    const { title, madeWithTitle, madeWithUri, madeWithFeaturedImage, steps, youCanAlsoUse, youCanAdd } = props.style;
+
+const Style = ({style}) => {
+    const { globalState } = useContext(StateContext);
+    const [gender, setGender] = useState(globalState);
+    
+    const { title, madeWithTitle, madeWithUri, madeWithFeaturedImage, steps, youCanAlsoUse, youCanAdd } = style; 
+
+    const combinedArray = interleaveArrays(youCanAlsoUse, youCanAdd);
+
     return (
         <>
             <Layout
                 title={title}
                 description={''}
-            >
-                
-                <div className={`content-container ${styles.contentStyle}`}>
+            >                
+               <div className={`content-container ${styles.contentStyle}`}>
                     <Assets />
                     <div className={`small-container ${styles.containerStyle}`}>
                         <div className={styles.styleContent}>
 
-                            <h1>{title}</h1>
-                            
-                            <p>Lorem ipsum  dolor sit amet, consectetur adipiscing elit. Integer pulvinar metus vitae eros semper tempus. Morbi volutpat suscipit dui, et blandit neque ullamcorper ut. Nunc pretium tortor ac maximus feugiat.</p>
-                            <Image
-                                src="/img/styles/asset.png" 
-                                alt="Descripción de la imagen"
-                                className="shadow"
-                                width={400} 
-                                height={400}
-                            /> 
-
-                            {/* <Image src={steps[steps.length - 1].feminineImageStep.mediaItemUrl} className="shadow" width={300} height={300} alt='imagen logotipo' /> */} 
-
-                            {/* <Image src="/img/step.jpg" className="shadow" width={400} height={400} alt='imagen logotipo' /> */}
-                            {/* <div className={styles.contentMadeWith}>
-                                <h1>Made With</h1>
-                                <div className={styles.wrapperMadeWith}>
-                                    <p className={styles.madeWithTitle}>{madeWithTitle}</p>
-                                    <Link href={madeWithUri}>
-                                        {/* <Image
-                                            src={youCanAlsoUseFeaturedImage} 
-                                            alt="Descripción de la imagen"
-                                            width={400} 
-                                            height={400}
-                                        />  */}
-                                        {/* <Image
-                                            src="/img/makeups.jpg" 
-                                            className="shadow"
-                                            alt="Descripción de la imagen"
-                                            width={200} 
-                                            height={200}
-                                        />  */}
-                                    {/*</Link> 
-                                </div> 
-                            </div> */}
+                            <h1>{title}</h1>                            
+                            <p>Lorem ipsum  dolor sit amet, consectetur adipiscing elit. Integer pulvinar metus vitae eros semper tempus. Morbi volutpat suscipit dui, et blandit neque ullamcorper ut. Nunc pretium tortor ac maximus feugiat.</p>                            
                         </div>
-                        <div className={styles.containerStepsStyle}>
-                            {steps.map(step => (
+                    </div>
+                    <div className={`small-container ${styles.containerStepsStyle}`}> 
+                        {steps.map((step) => {                            
+                            const imgStyle =
+                            gender === 'masculine'
+                                ? step.masculineImageStep?.mediaItemUrl ?? null
+                                : gender === 'feminine'
+                                ? step.feminineImageStep?.mediaItemUrl ?? null
+                                : step.masculineImageStep?.mediaItemUrl ?? null
+                            
+                            return (
                                 <div key={step.id} className={styles.contentStepsStyle}>
                                     <div className={styles.stepsStyle}>
                                         <div className={`${styles.containerStepsImg}`}>
-                                            {/* <Image
-                                                src={step.masculineImageStep.mediaItemUrl}
-                                                alt="Descripción de la imagen"
-                                                layout="fill"
-                                                objectFit="cover"
-                                            />  */}
-
-                                            <Image
-                                                src="/img/step.jpg"
+                                           <Image
+                                                src={imgStyle}
                                                 className="shadow"
                                                 alt="Descripción de la imagen"
-                                                layout="fill"
-                                                objectFit="cover"
-                                            /> 
+                                                width={400} 
+                                                height={400}
+                                                loading="lazy"
+                                            />
                                         </div>
-                                        <div>
+                                        <div className={styles.descriptionStep}>
                                             <div className={styles.stepContainer}>
                                                 <h1>{step.numberStep}</h1>
                                                 <span>Step</span>
-                                                
                                             </div>
-                                            <div>
-                                                <p>{step.descriptionStep}</p>
-                                            </div>
+                                            <p>{step.descriptionStep}</p>
                                         </div>
                                     </div>
-                                    
                                 </div> 
-                            ))}
-                        </div>
+                            );  
+                        })}
                     </div>
                     <div className={styles.containerYouCanAlsoUse}>
-                        <div className="small-container">
-                            <h3>{`Products you can also to give you a ${title} look`}</h3>
-                            <div className={styles.contentYouCanAlsoUse}>
-                                {youCanAlsoUse.map(product => (
-                                    <div className={styles.wrapperYouCanAlsoUse}>
-                                        <h4 className={styles.youCanAlsoUseTitle}>{product.youCanAlsoUseTitle}</h4>
-                                
-                                        <Link href={product.youCanAlsoUseUri}>
-                                            {/* <Image
-                                                src={youCanAlsoUseFeaturedImage} 
-                                                alt="Descripción de la imagen"
-                                                width={400} 
-                                                height={400}
-                                            />  */}
-                                            <Image
-                                                src="/img/step.jpg" 
-                                                className="shadow"
-                                                alt="Descripción de la imagen"
-                                                width={500} 
-                                                height={500}
-                                            /> 
-                                        </Link>                
-                            
-                                    </div> 
-                                ))}  
+                        <div className={styles.youCanAlsoUse}>
+                            <div className={styles.contentMadeWith}>
+                                <h3>Products needed</h3>
+                                <div>
+                                    <Link
+                                    className="shadow wrapperImgSlide"
+                                    href={madeWithUri}
+                                    > 
+                                    <h4 className="titleSlide">{madeWithTitle}</h4>              
+
+                                    <div className="imageWrapperLink" style={{ backgroundColor: isPngImage(madeWithFeaturedImage) ? '#802FB4' : '#fff' }}>
+                                        <Image
+                                            src={madeWithFeaturedImage}
+                                            alt="Descripción de la imagen"
+                                            width={400}
+                                            height={400}/>
+                                    </div>                       
+                                    </Link>           
+                                </div>                                 
+                            </div>
+                            <div className={styles.contentProductsYouCanAlsoUse}>
+                                <h3>{`Products you can also to give you a ${title} look`}</h3>
+                                <div className={`contentYouCanAlsoUse ${styles.contentYouCanAlsoUse}`}>
+                                    <Slider slides={combinedArray}/>
+                                </div>                             
                             </div>   
                         </div>           
-                    </div> 
-                    <div className={styles.containerYouCanAdd}>
-                        <div className="small-container">
-
-                            <h3>{`Products you can add to complete your look`}</h3>
-
-                            <div className={styles.contentYouCanAdd}>
-                                {youCanAdd.map(product => (
-                                    <div className={styles.wrapperYouCanAdd}>
-                                        <h4 className={styles.youCanAddTitle}>{product.youCanAddTitle}</h4>
-                                
-                                
-                                        <Link href={product.youCanAddUri}>
-                                            {/* <Image
-                                                src={youCanAlsoUseFeaturedImage} 
-                                                alt="Descripción de la imagen"
-                                                width={400} 
-                                                height={400}
-                                            />  */}
-                                            <Image
-                                                src="/img/step.jpg" 
-                                                className="shadow"
-                                                alt="Descripción de la imagen"
-                                                width={500} 
-                                                height={500}
-                                            /> 
-                                        </Link>                
-                            
-                                    </div> 
-                                ))}  
-                            </div>   
-                        </div>           
-                    </div>                     
-                </div>
-                
-            
+                    </div>                                  
+                </div> 
             </Layout>
         </>        
     );

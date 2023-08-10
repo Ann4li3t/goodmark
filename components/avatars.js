@@ -5,24 +5,21 @@ import { StateContext } from 'context/stateContext';
 import styles from '../styles/index.module.css'
 
 export const Avatars = () => {
-    const { globalState, updateGlobalState } = useContext(StateContext)   
-    /* const router = useRouter() */
+    const { globalState, updateGlobalState } = useContext(StateContext)  
 
     const handleClickFeminine = () => {   
         const updatedGender = 'feminine'
         updateGlobalState(updatedGender)
-        /* router.push('/styles') */
     }
 
     const handleClickMasculine = () => {
         const updatedGender = 'masculine'
         updateGlobalState(updatedGender)
-        /* router.push('/styles') */
     } 
-    console.log(globalState)
+    
   return (
     <>
-        <div className={`content ${styles.contentHome}`}>
+        <div className={`content content-container ${styles.contentHome}`}>
           <div className={styles.contentBannerQuality}>
             <div className={styles.contentIcon}>
               <Image 
@@ -57,23 +54,17 @@ export const Avatars = () => {
             <h3>Choose your avatar</h3>
             <div className={`contenedor ${styles.containerAvatars}`}>              
               <div className={styles.avatars}>
-                <button onClick={handleClickFeminine}>
-                  <Image 
-                    src="/img/index/boy.png" 
-                    width={400} 
-                    height={400} 
-                    className={styles.imgAvatar}
-                    alt='imagen logotipo' />      
+                <button 
+                className={styles.imgAvatarBoy} 
+                onClick={handleClickMasculine}
+                >
                 </button>
               </div>
               <div className={styles.avatars}>
-                <button onClick={handleClickMasculine}>
-                <Image 
-                    src="/img/index/girl.png" 
-                    width={400} 
-                    height={400} 
-                    className={styles.imgAvatar}
-                    alt='imagen logotipo' />     
+                <button 
+                  className={styles.imgAvatarGirl}
+                  onClick={handleClickFeminine}
+                >                        
                 </button>
               </div>
             </div>

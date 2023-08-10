@@ -8,17 +8,16 @@ import styles from '../styles/header.module.css'
 
 export default function Header() {
 
-    /* const router = useRouter() */
+    const router = useRouter()
 
     const { updateGlobalState } = useContext(StateContext);
 
-    const handleLinkClick = () => {
+    const handleLinkClick = (e) => {    
         updateGlobalState(null)
     };
 
     return (
         <header className={styles.header}>
-            {/* <Image src="/img/bg-header.png" width={1920} height={400} alt='imagen logotipo' /> */}
             <div className={styles.barra}>
                 <div className={styles.containerLogo}>
                     <Link href={'/'} onClick={handleLinkClick}>
@@ -28,20 +27,6 @@ export default function Header() {
                 <div className={styles.containerMenu}>
                     <Menu />
                 </div>
-                
-                
-                
-
-                
-                {/* <nav className={styles.navegacion}>
-                    <Link href="/" onClick={handleLinkClick} className={ router.pathname === '/' ? styles.active : ''}>
-                        Inicio
-                    </Link>
-
-                    <Link href="/products" onClick={handleLinkClick} className={ router.pathname === '/products' ? styles.active : ''}>
-                        Products
-                    </Link>
-                </nav> */}
             </div>
         </header>
     )

@@ -1,0 +1,134 @@
+.contentProducts {
+    background-color: var(--bg-purple);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100vw; 
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.contentTitleProducts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.contentTitleProducts h3 {
+    color: var(--white);
+    white-space: nowrap;
+    font-size: 1.3rem;
+    margin-right: 3rem;
+}
+
+.contentProducts h1 {
+    color: var(--black);
+    margin-top: 8px;
+} 
+
+.contentTitleProducts img {
+    width: 72px;
+    height: 22px;
+    margin-top: -10px;
+    position: absolute;
+    left: 58%;
+}
+
+.containerStyles {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.containerProducts, .containerAllProducts  {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-gap: 20px;     
+}
+
+.containerProducts {
+    margin-top: -4rem;
+}
+
+.containerAllProducts {
+    margin-top: 2rem;
+}
+
+.wrapperProduct {
+    position: relative;
+    display: inline-block; 
+    border: 8px solid var(--white); 
+    border-radius: 33px; 
+    overflow: hidden;
+}
+
+.titleProduct {
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.titleAllProduct {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-transform: lowercase;
+    font-size: 1.2rem;
+    padding: 10px 0 12px;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0; 
+    z-index: 5;
+    transform: translateY(100%); 
+    transition: visibility 0.3s, opacity 0.3s, transform 0.3s ease-in-out;    
+}
+
+.titleAllProduct:first-letter {
+    text-transform: uppercase;
+}
+
+.wrapperProduct:hover .titleProduct,
+.wrapperProduct:hover .titleAllProduct {
+    visibility: visible; 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+.wrapperProduct img {
+    transform: scale(1.01); 
+    z-index: 0;
+    transition: transform 0.3s ease-in-out;   
+    aspect-ratio: 1/1; 
+}
+
+.wrapperProduct:hover img {
+    transform: scale(1.2); 
+  }
+
+  .imageWrapperLink {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  .imageWrapperLink img {
+    object-fit: contain; 
+  }
+
+ 
+
+
+
+
+ 

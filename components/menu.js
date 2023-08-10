@@ -19,7 +19,7 @@ const Menu = () => {
     };
 
     const handleLinkClick = () => {
-        updateGlobalState(null)
+      updateGlobalState(null);
     };
 
   return (
@@ -33,7 +33,6 @@ const Menu = () => {
         <span className={styles.line}></span>
         <span className={styles.line}></span>
       </button>
-      {/* {isOpen && ( */}
         <nav className={`${styles.menu} ${isOpen ? styles.active : ''}`} onMouseLeave={closeMenu}>
           <ul>
             <li>
@@ -42,15 +41,14 @@ const Menu = () => {
                 </Link>
             </li>
             <li>
-                <Link href="/products" onClick={handleLinkClick} className={ router.pathname === '/products' ? styles.active : ''}>
+                <Link href="/products" className={ router.pathname === '/products' ? styles.active : ''}>
                 <h1>Products</h1>
                 </Link>
-            </li>
+            </li>            
             <li><a href="#"><h1>About Quality</h1></a></li>
             <li><a href="#"><h1>About Us</h1></a></li>
           </ul>
         </nav>
-      {/* )} */}
     </div>
   );
 };

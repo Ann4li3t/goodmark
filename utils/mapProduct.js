@@ -6,6 +6,14 @@ export const mapProduct = (nodes) => {
         uri: nodes.uri,
         title: nodes.title,
         nameTaxonomy: nodes.productFields.productCategory.name,
-        featuredImage: nodes.featuredImage.node.mediaItemUrl
+        content: nodes.blocks && nodes.blocks[0] && nodes.blocks[0].attributes ? nodes.blocks[0].attributes.content : '',
+        featuredImage: nodes.featuredImage.node.mediaItemUrl,
+
+        gender: nodes.productFields.gender,
+        qualitySeals: (nodes.productFields?.qualitySeals || []).map((seal) => ({
+            id: uuid(),
+            name: seal.name,
+            sealImage: seal.taxQualitySeals?.imgQualitySeals?.mediaItemUrl
+        })), 
     })
 }

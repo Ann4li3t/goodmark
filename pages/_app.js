@@ -3,9 +3,10 @@ import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <StateProvider>
-      <Component {...pageProps} />
-    </StateProvider>
+    
+      <StateProvider>
+        <Component {...pageProps} />
+      </StateProvider>
   )
 }
 
