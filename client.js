@@ -15,6 +15,6 @@ const cache = new InMemoryCache({
 });
 
 export const client = new ApolloClient({
-  uri: process.env.WP_GRAPHQL_URL,
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_DOMAIN,
   cache,
 });

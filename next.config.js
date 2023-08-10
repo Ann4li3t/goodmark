@@ -2,10 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['goodmark.local'],
+    domains: [process.env.NEXT_PUBLIC_IMAGE_DOMAIN],
   },
   env: {
-    WP_GRAPHQL_URL: 'http://goodmark.local/graphql'
+    NEXT_PUBLIC_GRAPHQL_DOMAIN: process.env.NEXT_PUBLIC_GRAPHQL_DOMAIN
   }
 };
 
